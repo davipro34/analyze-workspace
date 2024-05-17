@@ -2,7 +2,7 @@
     "name": "analyze-workspace",
     "displayName": "Analyze Workspace",
     "description": "An extension to analyze the workspace files",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "davipro",
     "engines": {
         "vscode": "^1.75.0"
@@ -12,10 +12,6 @@
     ],
     "main": "./out/extension.js",
     "activationEvents": [
-        "onCommand:extension.collectWorkspaceContext",
-        "onCommand:extension.addFileToAnalysis",
-        "onCommand:extension.removeFileFromAnalysis",
-        "onCommand:extension.copyContextToClipboard"
     ],
     "contributes": {
         "commands": [
@@ -34,6 +30,10 @@
             {
                 "command": "extension.copyContextToClipboard",
                 "title": "Copy Context to Clipboard"
+            },
+            {
+                "command": "extension.clearAnalysisList",
+                "title": "Clear Analysis List"
             }
         ],
         "menus": {

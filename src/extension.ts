@@ -37,6 +37,11 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(`Removed ${uri.fsPath} from analysis.`);
         }
     }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('extension.clearAnalysisList', () => {
+        filesToAnalyze.clear();
+        vscode.window.showInformationMessage('Analysis list cleared.');
+    }));
 }
 
 function addFilesRecursively(filePath: string) {
