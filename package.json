@@ -1,0 +1,60 @@
+{
+  "name": "analyze-workspace",
+  "displayName": "Analyze Workspace",
+  "description": "An extension to analyze the workspace files",
+  "version": "0.0.1",
+  "publisher": "your-publisher-name",
+  "engines": {
+      "vscode": "^1.50.0"
+  },
+  "categories": [
+      "Other"
+  ],
+  "activationEvents": [
+      "onCommand:extension.collectWorkspaceContext",
+      "onCommand:extension.addFileToAnalysis",
+      "onCommand:extension.removeFileFromAnalysis"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+      "commands": [
+          {
+              "command": "extension.collectWorkspaceContext",
+              "title": "Collect Workspace Context"
+          },
+          {
+              "command": "extension.addFileToAnalysis",
+              "title": "Add File to Analysis"
+          },
+          {
+              "command": "extension.removeFileFromAnalysis",
+              "title": "Remove File from Analysis"
+          }
+      ],
+      "menus": {
+          "explorer/context": [
+              {
+                  "command": "extension.addFileToAnalysis",
+                  "when": "resourceLangId != markdown",
+                  "group": "navigation@1"
+              },
+              {
+                  "command": "extension.removeFileFromAnalysis",
+                  "when": "resourceLangId != markdown",
+                  "group": "navigation@1"
+              }
+          ]
+      }
+  },
+  "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+      "@types/node": "^14.14.6",
+      "typescript": "^4.0.3",
+      "vscode": "^1.1.37"
+  }
+}
