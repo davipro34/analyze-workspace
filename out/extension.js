@@ -28,9 +28,10 @@ const vscode = __importStar(require("vscode"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 let filesToAnalyze = new Set();
+let collectedContext = [];
 function activate(context) {
-    context.subscriptions.push(vscode.commands.registerCommand('extension.collectWorkspaceContext', () => {
-        let collectedContext = [];
+    context.subscriptions.push(vscode.commands.registerCommand('extension.collectWorkspaceContext', async () => {
+        collectedContext = [];
         filesToAnalyze.forEach(filePath => {
             try {
                 const data = fs.readFileSync(filePath, 'utf8');
@@ -42,7 +43,10 @@ function activate(context) {
             }
         });
         vscode.window.showInformationMessage('Workspace context collected.');
-        showCollectedContext(collectedContext.join('\n'));
+        const contextText = collectedContext.join('\n');
+        await vscode.env.clipboard.writeText(contextText);
+        vscode.window.showInformationMessage('Collected context copied to clipboard.');
+        showCollectedContext(contextText);
     }));
     context.subscriptions.push(vscode.commands.registerCommand('extension.addFileToAnalysis', (uri) => {
         if (uri && uri.fsPath) {
