@@ -2,18 +2,13 @@
     "name": "analyze-workspace",
     "displayName": "Analyze Workspace",
     "description": "An extension to analyze the workspace files",
-    "version": "0.0.1",
-    "publisher": "your-publisher-name",
+    "version": "0.0.2",
+    "publisher": "davipro",
     "engines": {
-        "vscode": "^1.50.0"
+        "vscode": "^1.75.0"
     },
     "categories": [
         "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.collectWorkspaceContext",
-        "onCommand:extension.addFileToAnalysis",
-        "onCommand:extension.removeFileFromAnalysis"
     ],
     "main": "./out/extension.js",
     "contributes": {
@@ -29,6 +24,10 @@
             {
                 "command": "extension.removeFileFromAnalysis",
                 "title": "Remove File from Analysis"
+            },
+            {
+                "command": "extension.copyContextToClipboard",
+                "title": "Copy Context to Clipboard"
             }
         ],
         "menus": {
@@ -46,19 +45,3 @@
             ]
         }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/davipro34/analyze-workspace.git"
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "@types/node": "^14.14.6",
-        "typescript": "^4.0.3",
-        "vscode": "^1.1.37"
-    }
-}

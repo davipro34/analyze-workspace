@@ -3,10 +3,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 let filesToAnalyze: Set<string> = new Set();
+let collectedContext: string[] = [];
 
 export function activate(context: vscode.ExtensionContext) {
-    context.subscriptions.push(vscode.commands.registerCommand('extension.collectWorkspaceContext', () => {
-        let collectedContext: string[] = [];
+    context.subscriptions.push(vscode.commands.registerCommand('extension.collectWorkspaceContext', async () => {
+        collectedContext = [];
         filesToAnalyze.forEach(filePath => {
             try {
                 const data = fs.readFileSync(filePath, 'utf8');
@@ -17,7 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
             }
         });
         vscode.window.showInformationMessage('Workspace context collected.');
-        showCollectedContext(collectedContext.join('\n'));
+        const contextText = collectedContext.join('\n');
+        await vscode.env.clipboard.writeText(contextText);
+        vscode.window.showInformationMessage('Collected context copied to clipboard.');
+        showCollectedContext(contextText);
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('extension.addFileToAnalysis', (uri: vscode.Uri) => {
